@@ -9,6 +9,8 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    dt = 0
     while True:
         """
         This will check if the user has closed the 
@@ -22,8 +24,8 @@ def main():
         screen.fill(color=000000) #fills the screen with black color
         pygame.display.flip() #refreshes the screen
 
-
-
+        dt = clock.tick(60) /1000
+        print(f"FPS: {clock.get_fps():.2f}")
 
 
 if __name__ == "__main__":
