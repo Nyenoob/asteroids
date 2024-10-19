@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from constants import *
 from circleshape import * 
 from player import *
@@ -28,6 +29,8 @@ def main():
     player1 = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
     asteroidfield = AsteroidField()
 
+    #testroid=asteroidfield.spawn(30,(4,2),20)
+    #print(testroid.collision_check(player1))
 
     while True:
         """
@@ -41,6 +44,12 @@ def main():
 
         for obj in updatable:
             obj.update(dt)
+
+        for obj in asteroids:
+            if obj.collision_check(player1):
+                print("Game over!")
+                pygame.quit()
+                sys.exit()
 
         screen.fill("black") #fills the screen with black color
 
