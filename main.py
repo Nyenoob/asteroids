@@ -23,13 +23,15 @@ def main():
         for event in pygame.event.get():
              if event.type == pygame.QUIT:
                 return
-   
-        screen.fill(color=000000) #fills the screen with black color
-        player1.draw(screen)
-        pygame.display.flip() #refreshes the screen
- 
 
-        #dt = clock.tick(60) /1000
+        screen.fill(color=000000) #fills the screen with black color
+        
+        player1.draw(screen)
+        player1.update(dt)
+
+        pygame.display.flip() #refreshes the screen
+        
+        dt = clock.tick(60) /1000 #Sets FPS to 60 (if computer-power allows)
         #print(f"FPS: {clock.get_fps():.2f}")
 
 
