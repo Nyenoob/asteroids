@@ -48,11 +48,15 @@ def main():
         for obj in updatable:
             obj.update(dt)
 
-        for obj in asteroids:
-            if obj.collision_check(player1):
+        for asteroid in asteroids:
+            if asteroid.collision_check(player1):
                 print("Game over!")
                 pygame.quit()
                 sys.exit()
+            for shot in projectiles:
+                if shot.collision_check(asteroid):
+                    shot.kill()
+                    asteroid.kill()
 
         screen.fill("black") #fills the screen with black color
 
