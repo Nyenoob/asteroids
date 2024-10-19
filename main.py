@@ -5,15 +5,30 @@ import pygame
 from constants import *
 from circleshape import * 
 from player import *
+from asteroid import *
+from asteroidfield import *
 def main():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
     clock = pygame.time.Clock()
     dt = 0
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player1 = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
+    asteroidfield = AsteroidField()
+
+
     while True:
         """
         This will check if the user has closed the 
@@ -24,14 +39,17 @@ def main():
              if event.type == pygame.QUIT:
                 return
 
-        screen.fill(color=000000) #fills the screen with black color
-        
-        player1.draw(screen)
-        player1.update(dt)
+        for obj in updatable:
+            obj.update(dt)
+
+        screen.fill("black") #fills the screen with black color
+
+        for obj in drawable:
+            obj.draw(screen)
 
         pygame.display.flip() #refreshes the screen
         
-        dt = clock.tick(60) /1000 #Sets FPS to 60 (if computer-power allows)
+        dt = clock.tick(60) /1000 #limits the FPS to 60 (if computer-power allows)
         #print(f"FPS: {clock.get_fps():.2f}")
 
 
