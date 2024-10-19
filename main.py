@@ -9,6 +9,7 @@ from player import *
 from projectiles import *
 from asteroid import *
 from asteroidfield import *
+
 def main():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -56,7 +57,7 @@ def main():
             for shot in projectiles:
                 if shot.collision_check(asteroid):
                     shot.kill()
-                    asteroid.kill()
+                    asteroid.split()
 
         screen.fill("black") #fills the screen with black color
 
